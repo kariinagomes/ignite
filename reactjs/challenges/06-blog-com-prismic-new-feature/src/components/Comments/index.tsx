@@ -12,7 +12,7 @@ export default function Comments(): JSX.Element {
         scriptElem.setAttribute('repo', 'kariinagomes/ignite');
         scriptElem.setAttribute('issue-term', 'pathname');
         scriptElem.setAttribute('label', 'blog-comment');
-        scriptElem.setAttribute('theme', 'github-light');
+        scriptElem.setAttribute('theme', 'github-dark');
         elem.appendChild(scriptElem);
       }}
     />
