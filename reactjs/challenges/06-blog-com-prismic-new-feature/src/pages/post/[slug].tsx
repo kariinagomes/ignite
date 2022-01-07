@@ -1,18 +1,25 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Link from 'next/link';
 import Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
 
 import { getPrismicClient } from '../../services/prismic';
 
-import commonStyles from '../../styles/common.module.scss';
-import styles from './post.module.scss';
-import { formatDate } from '../../utils/formatDate';
+import Comments from '../../components/Comments';
+import ExitPreview from '../../components/ExitPreview';
 import Header from '../../components/Header';
 
+import { formatDate } from '../../utils/formatDate';
+
+import commonStyles from '../../styles/common.module.scss';
+import styles from './post.module.scss';
+
 interface Post {
+  uid?: string;
   first_publication_date: string | null;
+  last_publication_date?: string | null;
   data: {
     title: string;
     banner: {
@@ -30,9 +37,17 @@ interface Post {
 
 interface PostProps {
   post: Post;
+  preview?: boolean | null;
+  prevPost?: Post | null;
+  nextPost?: Post | null;
 }
 
-export default function Post({ post }: PostProps): JSX.Element {
+export default function Post({
+  post,
+  preview,
+  prevPost,
+  nextPost,
+}: PostProps): JSX.Element {
   const { isFallback } = useRouter();
 
   const readingTime = Math.ceil(
@@ -59,6 +74,9 @@ export default function Post({ post }: PostProps): JSX.Element {
             <time>{formatDate(post.first_publication_date)}</time>
             <span>{post.data.author}</span>
             <span>{readingTime} min</span>
+            <div>
+              <span>* editado em {formatDate(post.last_publication_date)}</span>
+            </div>
           </div>
           <div className={styles.postContent}>
             {post.data.content.map(content => (
@@ -70,6 +88,30 @@ export default function Post({ post }: PostProps): JSX.Element {
               </section>
             ))}
           </div>
+          <div className={styles.pagination}>
+            <div>
+              {prevPost && (
+                <Link href={`/post/${prevPost.uid}`}>
+                  <a className={styles.prevPost}>
+                    <span>{prevPost.data.title}</span>
+                    <strong>Post anterior</strong>
+                  </a>
+                </Link>
+              )}
+            </div>
+            <div>
+              {nextPost && (
+                <Link href={`/post/${nextPost.uid}`}>
+                  <a className={styles.nextPost}>
+                    <span>{nextPost.data.title}</span>
+                    <strong>Próximo post</strong>
+                  </a>
+                </Link>
+              )}
+            </div>
+          </div>
+          <Comments />
+          {preview && <ExitPreview />}
         </article>
       </main>
     </>
@@ -98,16 +140,45 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<PostProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<PostProps> = async ({
+  params,
+  preview = false,
+  previewData,
+}) => {
   const { slug } = params;
 
   const prismic = getPrismicClient();
-  const response = await prismic.getByUID('posts', String(slug), {});
+  const response = await prismic.getByUID('posts', String(slug), {
+    ref: previewData?.ref ?? null,
+  });
+
+  const prevPost =
+    (
+      await prismic.query([Prismic.predicates.at('document.type', 'posts')], {
+        // pageSize: 1,
+        after: slug,
+        orderings: '[document.first_publication_date desc]',
+        fetch: ['posts.title'],
+      })
+    ).results[0] ?? null;
+
+  const nextPost =
+    (
+      await prismic.query([Prismic.predicates.at('document.type', 'posts')], {
+        // pageSize: 1,
+        after: slug,
+        orderings: '[document.first_publication_date]',
+        fetch: ['posts.title'],
+      })
+    ).results[0] ?? null;
 
   return {
     props: {
       post: response,
+      preview,
+      prevPost,
+      nextPost,
     },
-    redirect: 60 * 30, // 30 minutes
+    revalidate: 60 * 30, // 30 minutes
   };
 };
