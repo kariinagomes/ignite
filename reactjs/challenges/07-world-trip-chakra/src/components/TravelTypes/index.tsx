@@ -48,7 +48,7 @@ export function TravelTypes() {
     >
       {types.map(({ label, alt, src }) => {
         return isWideVersion ? (
-          <Flex direction='column' align='center' w='36'>
+          <Flex key={alt} direction='column' align='center' w='36'>
             <Image src={src} alt={alt} />
             <Text
               fontSize={['lg', 'xl']}

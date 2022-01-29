@@ -155,7 +155,6 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
   const prevPost =
     (
       await prismic.query([Prismic.predicates.at('document.type', 'posts')], {
-        // pageSize: 1,
         after: slug,
         orderings: '[document.first_publication_date desc]',
         fetch: ['posts.title'],
@@ -165,7 +164,6 @@ export const getStaticProps: GetStaticProps<PostProps> = async ({
   const nextPost =
     (
       await prismic.query([Prismic.predicates.at('document.type', 'posts')], {
-        // pageSize: 1,
         after: slug,
         orderings: '[document.first_publication_date]',
         fetch: ['posts.title'],
