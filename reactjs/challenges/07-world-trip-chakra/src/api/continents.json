@@ -4,17 +4,63 @@
       "id": 1,
       "name": "europe",
       "title": "Europa",
-      "description": "A Europa é, por convenção, um dos seis continentes do mundo. Compreendendo a península ocidental da Eurásia, a Europa geralmente divide-se da Ásia a leste pela divisória de águas dos montes Urais, o rio Ural, o mar Cáspio, o Cáucaso, e o mar Negro a sudeste",
+      "description": "O continente mais antigo",
+      "about": "A Europa é, por convenção, um dos seis continentes do mundo. Compreendendo a península ocidental da Eurásia, a Europa geralmente divide-se da Ásia a leste pela divisória de águas dos montes Urais, o rio Ural, o mar Cáspio, o Cáucaso, e o mar Negro a sudeste",
       "banner": "/images/continents/europe.svg",
       "numberOfCountries": 50,
       "numberOfLanguages": 60,
       "numberOfCities": 24,
-      "topCities": {
-        "name": "Londres",
-        "image": "/images/continents/london.svg",
-        "country": "Reino Unido",
-        "flag": "/images/continents/london-flag.svg"
-      }
+      "topCities": [
+        {
+          "name": "Londres",
+          "image": "/images/continents/london.svg",
+          "country": "Reino Unido",
+          "flag": "/images/continents/united-kingdom-flag.svg"
+        },
+        {
+          "name": "Paris",
+          "image": "/images/continents/paris.svg",
+          "country": "França",
+          "flag": "/images/continents/france-flag.svg"
+        },
+        {
+          "name": "Roma",
+          "image": "/images/continents/roma.svg",
+          "country": "Itália",
+          "flag": "/images/continents/italy-flag.svg"
+        },
+        {
+          "name": "Praga",
+          "image": "/images/continents/prague.svg",
+          "country": "Reino Unido",
+          "flag": "/images/continents/czech-republic-flag.svg"
+        },
+        {
+          "name": "Amsterdã",
+          "image": "/images/continents/amsterdam.svg",
+          "country": "Holanda",
+          "flag": "/images/continents/netherlands-flag.svg"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "africa",
+      "title": "África",
+      "description": "O terceiro maior continente",
+      "about": "África é o terceiro maior continente do mundo e um dos mais populosos. O continente africano é rico em biodiversidade e multicultural.",
+      "banner": "/images/continents/africa.png",
+      "numberOfCountries": 54,
+      "numberOfLanguages": 100,
+      "numberOfCities": 50,
+      "topCities": [
+        {
+          "name": "Luanda",
+          "image": "/images/continents/luanda.jpg",
+          "country": "Angola",
+          "flag": "/images/continents/angola-flag.png"
+        }
+      ]
     }
   ]
 }

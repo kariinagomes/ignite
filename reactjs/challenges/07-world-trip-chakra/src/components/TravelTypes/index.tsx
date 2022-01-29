@@ -46,8 +46,8 @@ export function TravelTypes() {
       justify={['center', 'space-between']}
       flexWrap='wrap'
     >
-      {types.map(({ label, alt, src }) => {
-        return isWideVersion ? (
+      {isWideVersion &&
+        types.map(({ label, alt, src }) => (
           <Flex key={alt} direction='column' align='center' w='36'>
             <Image src={src} alt={alt} />
             <Text
@@ -59,8 +59,12 @@ export function TravelTypes() {
               {label}
             </Text>
           </Flex>
-        ) : (
+        ))}
+
+      {!isWideVersion &&
+        types.map(({ label, alt }) => (
           <Text
+            key={alt}
             fontSize='lg'
             fontWeight='600'
             color='gray.700'
@@ -75,8 +79,7 @@ export function TravelTypes() {
             />
             {label}
           </Text>
-        );
-      })}
+        ))}
     </Flex>
   );
 }

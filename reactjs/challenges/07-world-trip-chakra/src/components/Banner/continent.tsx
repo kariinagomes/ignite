@@ -1,17 +1,18 @@
 import { Flex, Text } from '@chakra-ui/react';
 
 interface BannerContinentProps {
-  continentName: string;
+  name: string;
+  banner: string;
 }
 
-export function BannerContinent({ continentName }: BannerContinentProps) {
+export function BannerContinent({ name, banner }: BannerContinentProps) {
   return (
     <Flex
       w='100%'
       maxWidth={1480}
       h={['60', 'md']}
       mx='auto'
-      bgImage='url(/images/continents/europe.svg)'
+      bgImage={`url(${banner})`}
       bgRepeat='no-repeat'
       bgSize='cover'
       px={['4', '24']}
@@ -20,7 +21,7 @@ export function BannerContinent({ continentName }: BannerContinentProps) {
       align={['center', 'flex-end']}
     >
       <Text color='gray.100' fontSize={['3xl', '5xl']} fontWeight='600'>
-        {continentName}
+        {name}
       </Text>
     </Flex>
   );
