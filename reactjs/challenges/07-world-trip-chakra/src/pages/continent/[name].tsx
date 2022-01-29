@@ -8,7 +8,6 @@ import { Cities } from '../../components/Cities';
 import { ContinentProps } from '../../types';
 
 export default function Continent({ continent }: ContinentProps) {
-  console.log('continent: ', continent);
   return (
     <>
       <Header />
