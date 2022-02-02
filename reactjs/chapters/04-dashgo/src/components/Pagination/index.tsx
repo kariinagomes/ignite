@@ -48,7 +48,8 @@ export function Pagination({
       align='center'
     >
       <Box>
-        <strong>0</strong> - <strong>10</strong> de <strong></strong>
+        <strong>0</strong> - <strong>{registersPerPage}</strong> de{' '}
+        <strong>{totalCountOfRegisters}</strong>
       </Box>
       <Stack direction='row' spacing='2'>
         {currentPage > 1 + siblingsCount && (
