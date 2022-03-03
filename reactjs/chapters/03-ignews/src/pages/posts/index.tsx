@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Prismic from '@prismicio/client';
 import { RichText } from 'prismic-dom';
-import { getPrimiscClient } from '../../services/primisc';
+import { getPrismicClient } from '../../services/prismic';
 
 import styles from './styles.module.scss';
 
@@ -42,7 +42,7 @@ export default function Posts({ posts }: PostProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prismic = getPrimiscClient();
+  const prismic = getPrismicClient();
 
   const response = await prismic.query(
     [Prismic.predicates.at('document.type', 'publication')],
