@@ -3,9 +3,9 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useSession } from 'next-auth/client';
-import { useRouter } from 'next/dist/client/router';
+import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
-import { getPrimiscClient } from '../../../services/primisc';
+import { getPrismicClient } from '../../../services/prismic';
 
 import styles from '../post.module.scss';
 
@@ -64,7 +64,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params;
 
-  const prismic = getPrimiscClient();
+  const prismic = getPrismicClient();
 
   const response = await prismic.getByUID('publication', String(slug), {});
 
